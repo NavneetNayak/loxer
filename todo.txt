@@ -1,2 +1,5 @@
 1.Add escape sequence support for strings.
-2.
+2.Change Hashmap implementation, right now I'm using a Hashmap that uses linked lists to deal with collisions, but I want to replace it 
+  with a hashtable that uses linear probing to deal with collisions, the hashtable is already written it just has to be tested and 
+  used in the scanner
+3.
