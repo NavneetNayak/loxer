@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "error.h"
+#include "../include/error.h"
 
 int had_error;
 
