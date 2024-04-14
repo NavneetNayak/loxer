@@ -1,1 +1,17 @@
-;{}
+class Person {
+	var age = 20;
+	var name = "John"
+	var lucky_number = 90.78
+	var year = 2024
+
+	fun say_hi () {
+		print("Hello")
+	}
+
+	fun say_age () {
+		var dob = year - age
+		print(dob)
+	}
+}
+
+
