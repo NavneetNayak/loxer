@@ -3,11 +3,11 @@
 #include "../include/error.h"
 #include "../include/scanner.h"
 
-static char * read_file (const char * path);
+char * read_file (const char * path);
 
-static void run_file (const char * path);
-static void run_prompt ();
-static void run (char * source);
+void run_file (const char * path);
+void run_prompt ();
+void run (char * source);
 
 /* User input code: */
 int main (int argc, char ** argv) {
@@ -26,7 +26,7 @@ int main (int argc, char ** argv) {
 }
 
 /* Reading file code: */
-static char * read_file (const char * path) {
+char * read_file (const char * path) {
     FILE * file = NULL;
     if (!(file = fopen(path, "rb"))) {
         fprintf(stderr, "Could not open file. %s\n", path);
@@ -40,13 +40,12 @@ static char * read_file (const char * path) {
 
     char * buffer = NULL;
     if (!(buffer = (char *) malloc(file_size + 1))) {
-        fprintf(stderr, "File buffer allocation error. %s\n", path);
-        exit(EXIT_FAILURE);
+        frontend_error("File buffer allocation error");
     }
 
     size_t bytes_read = fread(buffer, sizeof(char), file_size, file);
     if (bytes_read < file_size) {
-        fprintf(stderr, "Could not read file. %s\n", path);
+        frontend_error("Could not read file");
     }
 
     buffer[bytes_read] = '\0';
@@ -57,15 +56,15 @@ static char * read_file (const char * path) {
 }
 
 /* Running lox file code: */
-static void run_file (const char * path) {
+void run_file (const char * path) {
     char * source = read_file(path);
     run(source);
 }
 
-static void run_prompt () {
+void run_prompt () {
     //todo
 }
 
-static void run (char * source) {
+void run (char * source) {
     scan_tokens(source);
 }

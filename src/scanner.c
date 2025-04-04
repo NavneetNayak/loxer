@@ -7,32 +7,30 @@
 #include <ctype.h>
 #include <math.h>
 
-static int is_at_end ();
-static void scan_token();
-static char advance();
-static Token * init_tokens ();
-static void add_token (Token_type type, Literal literal);
-static int match (char expected);
-static char peek ();
-static void display_tokens ();
-static void string ();
-static void number ();
-static void parse_double ();
-static char peek_next ();
-static void identifier ();
+int is_at_end ();
+void scan_token();
+char advance();
+Token * init_tokens ();
+void add_token (Token_type type, Literal literal);
+int match (char expected);
+char peek ();
+void display_tokens ();
+void string ();
+void number ();
+void parse_double ();
+char peek_next ();
+void identifier ();
 
 //TODO: Create a toString function that returns token info
 
 char * source;
 Token * tokens;
 
-static int source_len;
-
-static int num_tokens = 0;
-
-static int start = 0;
-static int current = 0;
-static int line = 1;
+int source_len;
+int num_tokens = 0;
+int start = 0;
+int current = 0;
+int line = 1;
 
 Token * scan_tokens (char * buf) {
     init_hashmap();
@@ -76,11 +74,11 @@ Token * scan_tokens (char * buf) {
 }
 
 /* Check if end of source file is reached*/
-static int is_at_end () {
+int is_at_end () {
     return current >= source_len;
 }
 
-static void scan_token () {
+void scan_token () {
     char c = advance();
 
     switch (c) {
@@ -144,13 +142,13 @@ static void scan_token () {
     }
 }
 
-static char advance () {
+char advance () {
     return source[current++];
 }
 
 /* Add current token to tokens array, token contains information like token type, 
 literal, lexeme(text) */
-static void add_token (Token_type type, Literal literal) {
+void add_token (Token_type type, Literal literal) {
     char * lexeme;
     int lexeme_size = current - start + 1;
 
@@ -188,7 +186,7 @@ static void add_token (Token_type type, Literal literal) {
 }
 
 /* Initialize tokens array, so that it is not empty*/
-static Token * init_tokens () {
+Token * init_tokens () {
     Token * tokens = malloc(sizeof(Token));
 
     if (tokens == NULL) {
@@ -200,25 +198,25 @@ static Token * init_tokens () {
 
 /* Combine peek and advance (Only advance if certain character
 is next) */
-static int match (char expected) {
+int match (char expected) {
     char c = peek();
     if (c != '\0' && c != expected) return 0;
     advance();
     return 1;
 }
 
-static char peek () {
+char peek () {
     if (is_at_end()) return '\0';
     return source[current];
 }
 
-static void display_tokens () {
+void display_tokens () {
     for (int i = 0; i < num_tokens; i++) {
         fprintf(stdout, "%s %d\n", tokens[i].lexeme, tokens[i].type);
     }
 }
 
-static void string () {
+void string () {
     while (peek() != '"' && !is_at_end()) {
         if (peek() == '\n') line++;
         advance();
@@ -245,7 +243,7 @@ static void string () {
     add_token (STRING, (Literal){.string = str});
 }
 
-static void number () {
+void number () {
     while (isdigit(peek())) advance();
 
     if (peek() == '.' && isdigit(peek_next())) {
@@ -257,7 +255,7 @@ static void number () {
     parse_double();
 }
 
-static void parse_double () {
+void parse_double () {
     double int_part = 0;
     double decimal_part = 0;
     int after_decimal = 0;
@@ -281,12 +279,12 @@ static void parse_double () {
     add_token(NUMBER, (Literal){.number = num});
 }
 
-static char peek_next () {
+char peek_next () {
     if (is_at_end()) return '\0';
     return source[current+1];
 }
 
-static void identifier () {
+void identifier () {
     while (isalnum(peek()) || peek() == '_') advance();
 
     char * lexeme;

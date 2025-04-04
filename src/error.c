@@ -1,7 +1,13 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include "../include/error.h"
 
 int had_error;
+
+void frontend_error (const char *message) {
+    fprintf(stderr, "[ERROR]: %s\n", message);
+    exit(EXIT_FAILURE);
+}
 
 void error (int line, char * message) {
     //Write 'where' finding code

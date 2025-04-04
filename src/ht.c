@@ -5,11 +5,11 @@
 #include <stdbool.h>
 #include "../include/ht.h"
 
-static int hash_key (const char * key);
-static const char * ht_set_entry (ht_entry * entries, size_t capacity, const char * key, int val, size_t * length);
-static bool ht_expand (ht * table);
+int hash_key (const char * key);
+const char * ht_set_entry (ht_entry * entries, size_t capacity, const char * key, int val, size_t * length);
+bool ht_expand (ht * table);
 
-static int hash_key (const char * key) {
+int hash_key (const char * key) {
 	int len = strlen(key);
 	int hash;
 
@@ -138,7 +138,7 @@ ht_set_entry (ht_entry * entries, size_t capacity, const char * key, int val, si
 	return entries[index].key;
 }
 
-static bool ht_expand (ht * table) {
+bool ht_expand (ht * table) {
 	assert(table != NULL && table->entries != NULL);
 	if (table == NULL) {
 		return false;
