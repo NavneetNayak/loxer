@@ -18,7 +18,6 @@ typedef enum token_types {
 typedef union literals {
     char * string;
     double number;
-    int bool;
     void * ptr;
 } Literal;
 

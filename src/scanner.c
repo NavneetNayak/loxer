@@ -94,51 +94,51 @@ void scan_token () {
         case '*': add_token(STAR, (Literal){NULL}); break;
 
         case '!':
-        add_token(match('=') ? BANG_EQUAL : BANG, (Literal){NULL});
-        break;
+            add_token(match('=') ? BANG_EQUAL : BANG, (Literal){NULL});
+            break;
         case '=':
-        add_token(match('=') ? EQUAL_EQUAL : EQUAL, (Literal){NULL});
-        break;
+            add_token(match('=') ? EQUAL_EQUAL : EQUAL, (Literal){NULL});
+            break;
         case '<':
-        add_token(match('=') ? LESS_EQUAL : LESS, (Literal){NULL});
-        break;
+            add_token(match('=') ? LESS_EQUAL : LESS, (Literal){NULL});
+            break;
         case '>':
-        add_token(match('=') ? GREATER_EQUAL : GREATER, (Literal){NULL});
-        break;
+            add_token(match('=') ? GREATER_EQUAL : GREATER, (Literal){NULL});
+            break;
 
         case '/':
-        if (match('/')) {
-            while (peek() != '\n' && !is_at_end()) advance();
-        }
-        else {
-            add_token(SLASH, (Literal){NULL});
-        }
-        break;
+            if (match('/')) {
+                while (peek() != '\n' && !is_at_end()) advance();
+            }
+            else {
+                add_token(SLASH, (Literal){NULL});
+            }
+            break;
 
         case ' ':
         case '\r':
         case '\t':
-        break;
+            break;
 
         case '\n':
-        line++;
-        break;
+            line++;
+            break;
 
         case '"':
-        string();
-        break;
+            string();
+            break;
 
         default: 
-        if (isdigit(c)) {
-            number();
-        }
-        else if (isalpha(c) || c == '_') {
-            identifier();
-        }
-        else {
-            error(line, "Unexpected Character."); 
-        }
-        break;
+            if (isdigit(c)) {
+                number();
+            }
+            else if (isalpha(c) || c == '_') {
+                identifier();
+            }
+            else {
+                error(line, "Unexpected Character."); 
+            }
+            break;
     }
 }
 
@@ -211,6 +211,9 @@ char peek () {
 }
 
 void display_tokens () {
+    // don't print anything
+    return;
+
     for (int i = 0; i < num_tokens; i++) {
         fprintf(stdout, "%s %d\n", tokens[i].lexeme, tokens[i].type);
     }
