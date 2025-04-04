@@ -7,6 +7,8 @@
 static int hash_code (const char * key);
 static void add_node (struct bucket ** first, const char * key, int val);
 
+struct bucket * hashmap[MAP_SIZE];
+
 void init_hashmap () {
     for (int i = 0; i < MAP_SIZE; i++) hashmap[i] = NULL;
 }

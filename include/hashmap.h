@@ -13,8 +13,6 @@ struct bucket {
     struct bucket * next;
 };
 
-struct bucket * hashmap[MAP_SIZE];
-
 struct bucket * search_map (const char * key);
 void add_to_map (const char * key, int val);
 void init_hashmap ();

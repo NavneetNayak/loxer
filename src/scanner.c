@@ -213,7 +213,6 @@ static char peek () {
 }
 
 static void display_tokens () {
-    return;
     for (int i = 0; i < num_tokens; i++) {
         fprintf(stdout, "%s %d\n", tokens[i].lexeme, tokens[i].type);
     }
